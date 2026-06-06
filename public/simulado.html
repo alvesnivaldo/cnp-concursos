@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Simulado</title>
+
+<style>
+
+body {
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+  background: #f5f5f5;
+}
+
+h2 {
+  text-align: center;
+  color: #3b63c6;
+}
+
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.questao {
+  margin-bottom: 25px;
+}
+
+.questao p {
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+label:hover {
+  background: #f0f0f0;
+}
+
+button {
+  margin-top: 15px;
+  padding: 12px;
+  width: 100%;
+  background: #3b63c6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.correta {
+  background: #4caf50;
+  color: white;
+}
+
+.errada {
+  background: #f44336;
+  color: white;
+}
+
+#resultado {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>📘 SIMULADO - CONSULPAM</h2>
+
+<div class="card">
+
+  <div id="conteudo"></div>
+
+  <button onclick="corrigir()">
+    ✅ Finalizar Simulado
+  </button>
+
+  <p id="resultado"></p>
+
+  <button onclick="voltar()">
+    ⬅ Voltar
+  </button>
+
+</div>
+
+<script>
+
+// 🔥 BANCO DE QUESTÕES
+const questoes = [
+
+  {
+    pergunta: "10% de 200 é:",
+    opcoes: ["10", "20", "30", "40"],
+    correta: 1
+  },
+
+  {
+    pergunta: "Capital do Brasil:",
+    opcoes: ["Rio de Janeiro", "São Paulo", "Brasília", "Salvador"],
+    correta: 2
+  },
+
+  {
+    pergunta: "Qual linguagem roda no navegador?",
+    opcoes: ["Python", "Java", "JavaScript", "C++"],
+    correta: 2
+  },
+
+  {
+    pergunta: "2 + 2 é:",
+    opcoes: ["2", "3", "4", "5"],
+    correta: 2
+  },
+
+  {
+    pergunta: "Qual é a cor do céu em um dia limpo?",
+    opcoes: ["Verde", "Azul", "Preto", "Vermelho"],
+    correta: 1
+  }
+
+];
+
+// 🔥 CARREGAR QUESTÕES
+window.onload = function () {
+
+  const container = document.getElementById("conteudo");
+
+  questoes.forEach((q, i) => {
+
+    const div = document.createElement("div");
+    div.className = "questao";
+
+    const pergunta = document.createElement("p");
+    pergunta.innerHTML = `${i + 1}. ${q.pergunta}`;
+
+    div.appendChild(pergunta);
+
+    q.opcoes.forEach((op, j) => {
+
+      const label = document.createElement("label");
+      label.id = `q${i}_${j}`;
+
+      const input = document.createElement("input");
+
+      input.type = "radio";
+      input.name = `q${i}`;
+      input.value = j;
+
+      label.appendChild(input);
+
+      label.innerHTML += ` ${["A", "B", "C", "D"][j]}) ${op}`;
+
+      div.appendChild(label);
+
+    });
+
+    container.appendChild(div);
+
+  });
+
+};
+
+// 🔥 CORRIGIR SIMULADO
+function corrigir() {
+
+  let acertos = 0;
+
+  questoes.forEach((q, i) => {
+
+    const marcada = document.querySelector(
+      `input[name="q${i}"]:checked`
+    );
+
+    // limpa cores anteriores
+    q.opcoes.forEach((_, j) => {
+
+      document
+        .getElementById(`q${i}_${j}`)
+        .classList
+        .remove("correta", "errada");
+
+    });
+
+    if (marcada) {
+
+      const valor = Number(marcada.value);
+
+      // acertou
+      if (valor === q.correta) {
+
+        acertos++;
+
+        document
+          .getElementById(`q${i}_${valor}`)
+          .classList
+          .add("correta");
+
+      }
+
+      // errou
+      else {
+
+        document
+          .getElementById(`q${i}_${valor}`)
+          .classList
+          .add("errada");
+
+        document
+          .getElementById(`q${i}_${q.correta}`)
+          .classList
+          .add("correta");
+
+      }
+
+    }
+
+  });
+
+  const total = questoes.length;
+
+  const porcentagem = Math.round(
+    (acertos / total) * 100
+  );
+
+  document.getElementById("resultado").innerText =
+    `📊 Resultado: ${acertos}/${total} (${porcentagem}%)`;
+
+}
+
+// 🔥 VOLTAR
+function voltar() {
+  window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
