@@ -103,7 +103,7 @@ function App() {
       localStorage.getItem("usuarioLogado");
 
     const resposta = await fetch(
-      `http://localhost:3001/assinante/${usuarioLogado}`
+      `https://cnp-backend.vercel.app/assinante/${usuarioLogado}`
     );
 
     const dadosAssinante = await resposta.json();
