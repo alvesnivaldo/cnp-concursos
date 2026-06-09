@@ -564,7 +564,7 @@ if (tela === "confirmar") {
                 style={{
                   position: "absolute",
                   top: "200px", 
-                  left: "1800px",              
+                  left: "1600px",              
                   background: "#fff",
                   color: "#333",
                   padding: "8px 12px",
