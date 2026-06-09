@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Simulado from "./Simulado";
 import emailjs from "@emailjs/browser";
 
@@ -15,6 +15,13 @@ function App() {
   const [codigo4, setCodigo4] = useState("");
   const [codigo5, setCodigo5] = useState("");
   const [codigo6, setCodigo6] = useState("");
+
+  const input1 = useRef(null);
+  const input2 = useRef(null);
+  const input3 = useRef(null);
+  const input4 = useRef(null);
+  const input5 = useRef(null);
+  const input6 = useRef(null);
 
   const [questoesRespondidas, setQuestoesRespondidas] = useState(
     Number(localStorage.getItem("questoesRespondidas")) || 0
@@ -335,46 +342,95 @@ if (tela === "confirmar") {
       <div style={{ display: "flex", gap: "8px" }}>
 
   <input
-    maxLength="1"
-    value={codigo1}
-    onChange={(e) => setCodigo1(e.target.value)}
-    style={{ width: "40px", textAlign: "center", fontSize: "22px" }}
-  />
+  ref={input1}
+  autoFocus
+  maxLength="1"
+  value={codigo1}
+  onChange={(e) => {
+    setCodigo1(e.target.value);
+    if (e.target.value) input2.current.focus();
+  }}
+  style={{
+    width: "40px",
+    textAlign: "center",
+    fontSize: "22px"
+  }}
+/>
+
+  
+  <input
+  ref={input2}
+  maxLength="1"
+  value={codigo2}
+  onChange={(e) => {
+    setCodigo2(e.target.value);
+    if (e.target.value) input3.current.focus();
+  }}
+  style={{
+    width: "40px",
+    textAlign: "center",
+    fontSize: "22px"
+  }}
+/>
+
+ <input
+  ref={input3}
+  maxLength="1"
+  value={codigo3}
+  onChange={(e) => {
+    setCodigo3(e.target.value);
+    if (e.target.value) input4.current.focus();
+  }}
+  style={{
+    width: "40px",
+    textAlign: "center",
+    fontSize: "22px"
+  }}
+/>
+
+ <input
+  ref={input4}
+  maxLength="1"
+  value={codigo4}
+  onChange={(e) => {
+    setCodigo4(e.target.value);
+    if (e.target.value) input5.current.focus();
+  }}
+  style={{
+    width: "40px",
+    textAlign: "center",
+    fontSize: "22px"
+  }}
+/>
 
   <input
-    maxLength="1"
-    value={codigo2}
-    onChange={(e) => setCodigo2(e.target.value)}
-    style={{ width: "40px", textAlign: "center", fontSize: "22px" }}
-  />
+  ref={input5}
+  maxLength="1"
+  value={codigo5}
+  onChange={(e) => {
+    setCodigo5(e.target.value);
+    if (e.target.value) input6.current.focus();
+  }}
+  style={{
+    width: "40px",
+    textAlign: "center",
+    fontSize: "22px"
+  }}
+/>
 
   <input
-    maxLength="1"
-    value={codigo3}
-    onChange={(e) => setCodigo3(e.target.value)}
-    style={{ width: "40px", textAlign: "center", fontSize: "22px" }}
-  />
-
-  <input
-    maxLength="1"
-    value={codigo4}
-    onChange={(e) => setCodigo4(e.target.value)}
-    style={{ width: "40px", textAlign: "center", fontSize: "22px" }}
-  />
-
-  <input
-    maxLength="1"
-    value={codigo5}
-    onChange={(e) => setCodigo5(e.target.value)}
-    style={{ width: "40px", textAlign: "center", fontSize: "22px" }}
-  />
-
-  <input
-    maxLength="1"
-    value={codigo6}
-    onChange={(e) => setCodigo6(e.target.value)}
-    style={{ width: "40px", textAlign: "center", fontSize: "22px" }}
-  />
+  ref={input6}
+  maxLength="1"
+  value={codigo6}
+  onChange={(e) => {
+    setCodigo6(e.target.value);
+  }}
+  style={{
+    width: "40px",
+    textAlign: "center",
+    fontSize: "22px"
+  }}
+/>
 
 </div>
 
